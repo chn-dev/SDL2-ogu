@@ -8,13 +8,12 @@
 int main( int argc, char* args[] )
 {
   SDL_Window* window = NULL;
-  SDL_Surface* screenSurface = NULL;
   if (SDL_Init(SDL_INIT_VIDEO) < 0) {
     fprintf(stderr, "could not initialize sdl2: %s\n", SDL_GetError());
     return 1;
   }
   
-//  SDL_SetHint( SDL_HINT_RENDER_VSYNC, "1" );
+  SDL_SetHint( SDL_HINT_RENDER_VSYNC, "1" );
 
   window = SDL_CreateWindow(
 			    "hello_sdl2",
@@ -27,7 +26,7 @@ int main( int argc, char* args[] )
     return 1;
   }
   
-  SDL_Renderer *pRenderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC );
+  SDL_Renderer *pRenderer = SDL_CreateRenderer( window, -1, SDL_RENDERER_PRESENTVSYNC );
   if( !pRenderer )
   {
      SDL_DestroyWindow( window );
@@ -35,14 +34,15 @@ int main( int argc, char* args[] )
      return 1;
   }
 
-  screenSurface = SDL_GetWindowSurface(window);
-
-  int texW = 148;
-  int texH = 148;
+  int texW = -1;
+  int texH = -1;
   SDL_Surface *pPix = SDL_LoadBMP( "pic.bmp" );
   SDL_Texture *pTex = 0;
   if( pPix )
   {
+     printf( "Texture size: %d, %d\n", pPix->w, pPix->h );
+     texW = pPix->w;
+     texH = pPix->h;
      pTex = SDL_CreateTextureFromSurface( pRenderer, pPix );
      SDL_FreeSurface( pPix );
   }
@@ -53,6 +53,7 @@ int main( int argc, char* args[] )
   {
      SDL_SetRenderDrawColor( pRenderer, 0xff, 0xff, 0xff, 0xff );
      SDL_RenderClear( pRenderer );
+
      SDL_Rect dRect;
      int w = texW * ( sin( a * 0.01 ) + 2.0 );
      int h = texH * ( sin( a * 0.01 ) + 2.0 );
@@ -62,6 +63,7 @@ int main( int argc, char* args[] )
      dRect.y = ( ( SCREEN_HEIGHT -  h ) / 2 ) + cos( a * 0.05 ) * 100.0;
      SDL_RenderCopyEx( pRenderer, pTex, 0, &dRect, a, 0, SDL_FLIP_NONE );
      a += 0.75;
+
      SDL_RenderPresent( pRenderer );
 
      SDL_Event event;
