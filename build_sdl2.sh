@@ -18,6 +18,10 @@ else
    tar xzf SDL-ge2d.tar.gz
 fi
 
+cd SDL-ge2d
+git checkout 2.0.22
+cd ..
+
 # Retrieve OpenGL-Meson
 if [ ! -f opengl-meson.tar.gz ]; then
    echo "Retrieving opengl-meson from github..."
