@@ -63,9 +63,8 @@ int main( int argc, char* args[] )
      SDL_RenderCopyEx( pRenderer, pTex, 0, &dRect, a, 0, SDL_FLIP_NONE );
      a += 0.75;
      SDL_RenderPresent( pRenderer );
-//     SDL_UpdateWindowSurface( window );
 
-/*     SDL_Event event;
+     SDL_Event event;
      while( SDL_PollEvent( &event ) )
      {
         if( event.type == SDL_KEYDOWN )
@@ -76,17 +75,8 @@ int main( int argc, char* args[] )
               runrun = 0;
            }
         }
-     }*/
+     }
   }
-/*
-  for( int i = 0; i < 20; i++ )
-  {
-    unsigned char c = i & 1 ? 0xff : 0x00;
-    SDL_FillRect(screenSurface, NULL, SDL_MapRGB(screenSurface->format, c, c, c));
-    SDL_UpdateWindowSurface(window);
-    SDL_Delay(250);
-  }
-  */
 
   SDL_DestroyWindow(window);
   SDL_Quit();
