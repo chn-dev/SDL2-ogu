@@ -1,6 +1,9 @@
 #!/bin/bash
 
+SDL2_VERSION=2.0.22
 HOMEDIR=`pwd`
+DATE=`date +%Y%m%d`
+VERSION=${SDL2_VERSION}_${DATE}
 
 rm -rf SDL2-ogu
 mkdir SDL2-ogu
@@ -11,15 +14,15 @@ if [ ! -f SDL-ge2d.tar.gz ]; then
    echo "Cloning SDL2 sources from github..."
    git clone https://github.com/JohnnyonFlame/SDL-ge2d/ SDL-ge2d
    echo "Creating local backup archive of SDL2 sources..."
-   tar -cf SDL-ge2d.tar SDL-ge2d
-   gzip -9 SDL-ge2d.tar
+   tar -cf SDL-ge2d_${SDL2_VERSION}.tar SDL-ge2d
+   gzip -9 SDL-ge2d_${SDL2_VERSION}.tar
 else
    echo "Extracting SDL2 sources..."
-   tar xzf SDL-ge2d.tar.gz
+   tar xzf SDL-ge2d_${SDL2_VERSION}.tar.gz
 fi
 
 cd SDL-ge2d
-git checkout 2.0.22
+git checkout $SDL2_VERSION
 cd ..
 
 # Retrieve OpenGL-Meson
@@ -101,12 +104,14 @@ mv *.a lib
 mkdir include/SDL2
 mv include/*.h include/SDL2/
 cp -R $HOMEDIR/SDL-ge2d/include/* ./include/SDL2/
+cp $HOMEDIR/aarch64.cmake .
+cp $HOMEDIR/FindSDL2.cmake .
 cd ..
 
 echo "Creating local archive of SDL2 headers and libs..."
 rm -f SDL2-ogu.tar.gz
-tar -cf SDL2-ogu.tar SDL2-ogu
-gzip -9 SDL2-ogu.tar
+tar -cf SDL2-ogu_${VERSION}.tar SDL2-ogu
+gzip -9 SDL2-ogu_${VERSION}.tar
 
 echo "Ready."
 
