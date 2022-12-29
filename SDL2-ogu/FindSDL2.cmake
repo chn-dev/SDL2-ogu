@@ -148,8 +148,7 @@ because not all systems place things in SDL/ (see FreeBSD).
 # Define options for searching SDL2 Library in a custom path
 set( CMAKE_TOOLCHAIN_FILE aarch64.cmake )
 
-#set(SDL2_PATH "/home/odroid/nfs/tmp/SDL2-ogu/SDL2-ogu" CACHE STRING "Custom SDL2 Library path")
-set(SDL2_PATH ${CMAKE_CURRENT_LIST_DIR} CACHE STRING "Custom SDL2 Library path")
+set(SDL2_PATH "${CMAKE_CURRENT_LIST_DIR}/SDL2" CACHE STRING "Custom SDL2 Library path")
 
 set(_SDL2_NO_DEFAULT_PATH OFF)
 if(SDL2_PATH)

@@ -5,12 +5,12 @@ HOMEDIR=`pwd`
 DATE=`date +%Y%m%d`
 VERSION=${SDL2_VERSION}_${DATE}
 
-rm -rf SDL2-ogu
-mkdir SDL2-ogu
+rm -rf SDL2-ogu/SDL2
+mkdir SDL2-ogu/SDL2
 
 # Retrieve SDL2 Sources
 rm -rf SDL-ge2d
-if [ ! -f SDL-ge2d.tar.gz ]; then
+if [ ! -f SDL-ge2d_${SDL2_VERSION}.tar.gz ]; then
    echo "Cloning SDL2 sources from github..."
    git clone https://github.com/JohnnyonFlame/SDL-ge2d/ SDL-ge2d
    echo "Creating local backup archive of SDL2 sources..."
@@ -44,9 +44,9 @@ cd ..
 # Compile SDL2
 echo "Running cmake on SDL2 sources..."
 cd SDL-ge2d
-cmake -B $HOMEDIR/SDL2-ogu \
+cmake -B $HOMEDIR/SDL2-ogu/SDL2 \
     -DCMAKE_C_FLAGS=-I\ $HOMEDIR/opengl-meson/include \
-    -DCMAKE_TOOLCHAIN_FILE=$HOMEDIR/aarch64.cmake \
+    -DCMAKE_TOOLCHAIN_FILE=$HOMEDIR/SDL2-ogu/aarch64.cmake \
     -DSDL_STATIC=ON \
         -DSDL_LIBC=ON \
         -DSDL_GCC_ATOMICS=ON \
@@ -93,8 +93,7 @@ cmake -B $HOMEDIR/SDL2-ogu \
     -DSDL_KMSDRM=OFF
 
 echo "Building SDL2 sources..."
-cd ..
-cd SDL2-ogu
+cd $HOMEDIR/SDL2-ogu/SDL2
 make
 
 echo "Copying header files and libs..."
@@ -104,9 +103,7 @@ mv *.a lib
 mkdir include/SDL2
 mv include/*.h include/SDL2/
 cp -R $HOMEDIR/SDL-ge2d/include/* ./include/SDL2/
-cp $HOMEDIR/aarch64.cmake .
-cp $HOMEDIR/FindSDL2.cmake .
-cd ..
+cd $HOMEDIR
 
 echo "Creating local archive of SDL2 headers and libs..."
 rm -f SDL2-ogu.tar.gz
