@@ -1,22 +1,21 @@
 # SDL2-ogu
 
-SDL2-ogu is [JonnyonFlame's](https://forum.odroid.com/viewtopic.php?f=221&t=45184) port of [SDL2](https://github.com/JohnnyonFlame/SDL-ge2d/tree/2.0.22) for the [Odroid-Go Ultra](https://wiki.odroid.com/odroid_go_ultra/odroid_go_ultra), pre-compiled and packaged nicely. The package contains all necessary static+dynamic libraries, include files, cmake files and examples. It can be used to compile SDL2 applications on the device itself as well as to cross-compile them on an Ubuntu Linux PC very easily.
+SDL2-ogu is [JonnyonFlame's](https://forum.odroid.com/viewtopic.php?f=221&t=45184) port of [SDL2](https://github.com/JohnnyonFlame/SDL-ge2d/tree/2.0.22) for the [Odroid-Go Ultra](https://wiki.odroid.com/odroid_go_ultra/odroid_go_ultra), pre-compiled and packaged nicely. The package contains all necessary static+dynamic libraries, include files, cmake files and some example projects. It can be used to compile SDL2 applications on the device itself as well as to cross-compile them on an Ubuntu Linux PC very easily. All you need is a regular SDL2 C/C++ project with a CMakeLists.txt file.
 
-## How To Use SDL2-ogu
-
-The package contains
+Package contents:
 
 - the SDL2 include files in SDL2-ogu/SDL2/include
 - the SDL2 static (*.a) and dynamic (*.so) libraries in SDL2-ogu/SDL2/lib
 - the cmake SDL2 module file (SDL2-ogu/FindSDL2.cmake)
 - the aarch64 toolchain file (SDL2-ogu/aarch64.cmake)
 
-This means that you should be able to build any existing SDL2 project which comes with a CMakeLists.txt file without any further adjustments.
 
-Copy the SDL2-ogu package (for example: "SDL2-ogu_2.0.22_20221229.tar.gz") anywhere on your OGU and extract it:
+## How To Use SDL2-ogu
+
+Copy the SDL2-ogu package (for example: "SDL2-ogu_2.0.22_20221230.tar.gz") anywhere on your OGU and extract it:
 
 ```
-tar xzvf SDL2-ogu_2.0.22_20221229.tar.gz
+tar xzvf SDL2-ogu_2.0.22_20221230.tar.gz
 ```
 
 After that, the Makefile for the "helloworld" example project can be created with:
